@@ -1,0 +1,131 @@
+body {
+    margin: 50px;
+    background-color: #fafaf5;
+}
+
+/*
+* Styling of title and subtitle.
+*/
+.title {
+    font-family: 'Inter';
+    font-size: 36px;
+    text-align: center;
+}
+
+.subtitle {
+    font-family: 'Inter';
+    font-size: 26px;
+    font-weight: 500;
+    color: #5a5a5a;
+    text-align: center;
+}
+
+/*
+* Styling of container.
+*/
+.container {
+    margin: 30px auto auto auto;
+    padding: 50px;
+    border: 4px solid #e6e6e6;
+    border-radius: 12px;
+    background-color: #fcfffc;
+    min-height: 200px;
+    max-width: 500px;
+}
+
+/*
+* Styling of tasks.
+*/
+.task-container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 4px;
+    font-family: 'Newsreader';
+    user-select: none;
+}
+
+.task-index {
+    margin-right: 10px;
+    text-align: center;
+}
+
+.task {
+    font-size: 36px;
+    font-weight: 500;
+    color: #212121;
+}
+
+.task:hover {
+    cursor: pointer;
+    color: #006020;
+}
+
+.task-container.completed > .task {
+    text-decoration: line-through;
+    color: #006020;
+}
+
+.task-container.completed > .task-index {
+    color: #006020;
+}
+
+/*
+* Styling of "add task" form.
+*/
+input {
+    vertical-align: top;
+}
+
+.button {
+    background-color: #92c792;
+    border: 2px solid #7da67d;
+    border-radius: 0px 6px 6px 0px;
+    color: #ffffff;
+    font-family: 'Inter';
+    font-weight: bold;
+    font-size: 20px;
+    height: 100%;
+    width: 20%;
+}
+
+.button:hover {
+    background-color: #90c090;
+    color: #fefefe;
+}
+
+.textfield {
+    outline: none;
+    box-sizing: border-box;
+    background-color: #fafafa;
+    border-style: solid;
+    border-color: #bcbcbc;
+    border-radius: 6px 0px 0px 6px;
+    border-right: 0;
+    padding: 0px 0px 0px 20px;
+    font-weight: 500;
+    height: 100%;
+    width: 80%;
+    font-size: 20px;
+}
+
+.textfield::placeholder {
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 20px;
+    color: #818181;
+    position: relative;
+}
+
+.form {
+    padding-top: 20px;
+    font-size: 0;
+    height: 52px;
+}
+
+input[type=text] {
+	box-shadow: inset 2px 2px 1px 1px rgba(32, 32, 32, 0.10);
+}
+
+input[type=text]:focus {
+	box-shadow: none;
+}
