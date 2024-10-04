@@ -1,6 +1,6 @@
 const addTaskElement = (task) => {
-    const container = document.getElementsByClassName('container')[0];
-    const form = container.getElementsByTagName('form')[0];
+    const container = document.getElementById('container');
+    const form = document.getElementById('form');
     const taskContainer = document.createElement('div');
     const index = document.createElement('label');
     const description = document.createElement('label');
@@ -44,7 +44,25 @@ document.addEventListener('DOMContentLoaded', async e => {
             }).then(() => container.classList.toggle('completed'));
         });
     });
+
+    // Update subtitle
+    document.getElementById('subtitle').innerHTML =
+        containers.length + ' tasks so far...';
 });
 
-// 
-document 
+// Event handling for "add task" form
+document.addEventListener('DOMContentLoaded', async _ => {
+    const button = document.getElementById('button');
+    const textfield = document.getElementById('textfield');
+    
+    const handleSubmission = _ => {
+        fetch('/add/' + textfield.value, { method: 'post' })
+            .then(_ => window.location.replace('/'));
+    };
+    
+    button.addEventListener('click', handleSubmission);
+    textfield.addEventListener('keydown', e => {
+        if (e.key === 'Enter')
+            handleSubmission();
+    });
+});
