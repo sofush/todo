@@ -37,6 +37,7 @@ body {
 * Styling of tasks.
 */
 .task-container {
+    display: flex;
     padding-top: 10px;
     padding-bottom: 10px;
     margin-bottom: 4px;
@@ -45,8 +46,7 @@ body {
 }
 
 .task-index {
-    margin-right: 10px;
-    text-align: center;
+    margin: auto 14px auto auto;
 }
 
 .task {
@@ -67,6 +67,29 @@ body {
 
 .task-container.completed > .task-index {
     color: #006020;
+}
+
+.task-delete {
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #f13249;
+    border: 3px solid #e31c1c;
+    border-radius: 6px;
+    min-width: 50px;
+    height: 30px;
+    margin: auto;
+}
+
+.task-container:hover > .task-delete {
+    opacity: 1;
+}
+
+.task-delete > i {
+    margin: auto;
+    color: #ffeaea;
+    font-size: 18px;
 }
 
 /*

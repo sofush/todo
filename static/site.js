@@ -2,21 +2,15 @@ const addTaskElement = (task) => {
     const container = document.getElementById('container');
     const form = document.getElementById('form');
     const taskContainer = document.createElement('div');
-    const index = document.createElement('label');
-    const description = document.createElement('label');
     
-    taskContainer.appendChild(index);
-    taskContainer.appendChild(description);
+    const indexHtml = `<div class="task-index">${task.id})</div>`;
+    const descHtml = `<div class="task">${task.description}</div>`;
+    const spaceHtml = `<div style="flex: 1"></div>`;
+    const deleteHtml = `<div class="task-delete"><i class="fa-solid fa-trash fa-fw"></i></div>`;
+
+    taskContainer.innerHTML = indexHtml + descHtml + spaceHtml + deleteHtml;
     container.insertBefore(taskContainer, form);
-
-    index.innerHTML = task.id + ")";
-    description.innerHTML = task.description;
-    if (task.completed === true)
-        taskContainer.classList.add('completed');
-
     taskContainer.classList.add('task-container');
-    index.classList.add('task-index');
-    description.classList.add('task');
 };
 
 // Load tasks and insert HTML elements
