@@ -40,7 +40,7 @@ app.get('/', async (_req, res) => {
     res.sendFile(getFile('index.html'));
 });
 
-app.get('/tasks', async (req, res) => {
+app.get('/tasks', async (_req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(tasks));
@@ -49,27 +49,37 @@ app.get('/tasks', async (req, res) => {
 app.post('/add/:description', async (req, res) => {
     const description = req.params.description;
 
-    if (description !== undefined) {
-        tasks.push({
-            id: ++counter,
-            description: description,
-            completed: false,
-        });
+    if (description === undefined) {
+        res.statusCode = 400;
+        res.setHeader('Content-Type', 'text/plain');
+        res.end('Invalid input.');
     }
 
-    res.redirect('/');
+    const newTask = {
+        id: ++counter,
+        description: description,
+        completed: false,
+    };
+
+    tasks.push(newTask);
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(newTask));
 });
 
 app.post('/toggle/:id', async (req, res) => {
     tasks
         .filter(task => task.id == req.params.id)
         .forEach(task => task.completed = !task.completed);
-    res.redirect('/');
+
+    res.statusCode = 200;
+    res.end();
 });
 
 app.post('/delete/:id', async (req, res) => {
     tasks = tasks.filter(task => task.id == req.params.id);
-    res.redirect('/');
+    res.statusCode = 200;
+    res.end();
 });
 
 const port = 3000;
