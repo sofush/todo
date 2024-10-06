@@ -77,7 +77,7 @@ app.post('/toggle/:id', async (req, res) => {
 });
 
 app.post('/delete/:id', async (req, res) => {
-    tasks = tasks.filter(task => task.id == req.params.id);
+    tasks = tasks.filter(task => task.id != req.params.id);
     res.statusCode = 200;
     res.end();
 });
