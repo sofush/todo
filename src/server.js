@@ -32,21 +32,21 @@ const getFile = function(file) {
     return path.join(__dirname, '..', `static/${file}`);
 };
 
-app.get('/static/:file', async (req, res) => {
+app.get('/static/:file', (req, res) => {
     res.sendFile(getFile(req.params.file));
 });
 
-app.get('/', async (_req, res) => {
+app.get('/', (_req, res) => {
     res.sendFile(getFile('index.html'));
 });
 
-app.get('/tasks', async (_req, res) => {
+app.get('/tasks', (_req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(tasks));
 });
 
-app.post('/add/:description', async (req, res) => {
+app.post('/add/:description', (req, res) => {
     const description = req.params.description;
 
     if (description === undefined) {
@@ -67,7 +67,7 @@ app.post('/add/:description', async (req, res) => {
     res.end(JSON.stringify(newTask));
 });
 
-app.post('/toggle/:id', async (req, res) => {
+app.patch('/toggle/:id', (req, res) => {
     tasks
         .filter(task => task.id == req.params.id)
         .forEach(task => task.completed = !task.completed);
@@ -76,7 +76,7 @@ app.post('/toggle/:id', async (req, res) => {
     res.end();
 });
 
-app.post('/delete/:id', async (req, res) => {
+app.delete('/delete/:id', (req, res) => {
     tasks = tasks.filter(task => task.id != req.params.id);
     res.statusCode = 200;
     res.end();
