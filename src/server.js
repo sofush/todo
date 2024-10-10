@@ -81,6 +81,10 @@ app.delete('/delete/:id', (req, res) => {
     res.end();
 });
 
+app.use((_req, _res) => {
+    console.log('Could not handle request.');
+});
+
 const port = 3000;
 app.listen(port, () => {
     console.log(`Server is listening on http://localhost:${port}`);
