@@ -45,7 +45,7 @@ const updateSubtitle = () => {
 };
 
 // Load tasks and insert HTML elements
-document.addEventListener('DOMContentLoaded', async e => {
+document.addEventListener('DOMContentLoaded', async _ => {
     const response = await fetch('/tasks');
     if (!response.ok) return;
     
