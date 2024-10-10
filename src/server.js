@@ -49,7 +49,7 @@ app.get('/tasks', (_req, res) => {
 app.post('/add/:description', (req, res) => {
     const description = req.params.description;
 
-    if (description === undefined) {
+    if (!description.trim()) {
         res.statusCode = 400;
         res.setHeader('Content-Type', 'text/plain');
         res.end('Invalid input.');
