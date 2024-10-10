@@ -1,3 +1,30 @@
+const updateSubtitle = () => {
+    const tasks = document.getElementsByClassName('task-container');
+    const subtitle = document.getElementById('subtitle');
+    subtitle.textContent = tasks.length + ' tasks so far...';
+};
+
+const toggleCompleted = async (taskContainerDiv, taskId) => {
+    const res = await fetch(`/toggle/${taskId}`, { method: 'PATCH' });
+
+    if (res.status !== 204) {
+        return;
+    }
+
+    taskContainerDiv.classList.toggle('completed');
+    updateSubtitle();
+};
+
+const deleteTask = async (taskContainerDiv, taskId) => {
+    const res = await fetch(`/delete/${taskId}`, { method: 'DELETE' });
+
+    if (res.status !== 204)
+        return;
+
+    taskContainerDiv.remove();
+    updateSubtitle();
+};
+
 const addTaskElement = (taskJson) => {
     const container = document.getElementById('container');
     const form = document.getElementById('form');
@@ -13,35 +40,11 @@ const addTaskElement = (taskJson) => {
     taskContainer.classList.add('task-container');
 
     const taskElement = taskContainer.getElementsByClassName('task')[0];
-
-    taskElement.addEventListener('click', async _ => {
-        const res = await fetch(`/toggle/${taskJson.id}`, { method: 'PATCH' });
-
-        if (res.status !== 204) {
-            return;
-        }
-
-        taskContainer.classList.toggle('completed')
-        updateSubtitle();
-    });
-    
     const deleteElement = taskContainer.getElementsByClassName('task-delete')[0];
-    
-    deleteElement.addEventListener('click', async _ => {
-        const res = await fetch(`/delete/${taskJson.id}`, { method: 'DELETE' });
+    const taskId = taskJson.id;
 
-        if (res.status !== 204)
-            return;
-
-        taskContainer.remove();
-        updateSubtitle();
-    });
-};
-
-const updateSubtitle = () => {
-    const tasks = document.getElementsByClassName('task-container');
-    document.getElementById('subtitle').innerHTML =
-        tasks.length + ' tasks so far...';
+    taskElement.addEventListener('click', async _ => await toggleCompleted(taskContainer, taskId));
+    deleteElement.addEventListener('click', async _ => await deleteTask(taskContainer, taskId));
 };
 
 // Load tasks and insert HTML elements
