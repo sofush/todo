@@ -72,13 +72,13 @@ app.patch('/toggle/:id', (req, res) => {
         .filter(task => task.id == req.params.id)
         .forEach(task => task.completed = !task.completed);
 
-    res.statusCode = 200;
+    res.statusCode = 204;
     res.end();
 });
 
 app.delete('/delete/:id', (req, res) => {
     tasks = tasks.filter(task => task.id != req.params.id);
-    res.statusCode = 200;
+    res.statusCode = 204;
     res.end();
 });
 
