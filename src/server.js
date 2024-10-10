@@ -32,6 +32,11 @@ const getFile = function(file) {
     return path.join(__dirname, '..', `static/${file}`);
 };
 
+app.use((req, _res, next) => {
+    console.log(`${req.method} ${req.path} from ${req.ip}`);
+    next();
+});
+
 app.get('/static/:file', (req, res) => {
     res.sendFile(getFile(req.params.file));
 });
