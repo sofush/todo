@@ -28,21 +28,15 @@ var tasks = [
 ];
 var counter = tasks.length;
 
-const getFile = function(file) {
-    return path.join(__dirname, '..', `static/${file}`);
-};
-
 app.use((req, _res, next) => {
     console.log(`${req.method} ${req.path} from ${req.ip}`);
     next();
 });
 
-app.get('/static/:file', (req, res) => {
-    res.sendFile(getFile(req.params.file));
-});
+app.use('/static', express.static(path.join(__dirname, '..', 'static')))
 
 app.get('/', (_req, res) => {
-    res.sendFile(getFile('index.html'));
+    res.sendFile(path.join(__dirname, '..', 'static', 'index.html'));
 });
 
 app.get('/tasks', (_req, res) => {
