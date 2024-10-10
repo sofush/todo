@@ -51,7 +51,8 @@ app.post('/tasks', (req, res) => {
     if (!description.trim()) {
         res.statusCode = 400;
         res.setHeader('Content-Type', 'text/plain');
-        res.end('Invalid input.');
+        res.end();
+        return;
     }
 
     const newTask = {
