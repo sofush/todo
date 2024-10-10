@@ -51,9 +51,8 @@ document.addEventListener('DOMContentLoaded', async e => {
     
     const tasks = await response.json();
 
-    Array.from(tasks).forEach(task => {
+    for (const task of tasks)
         addTaskElement(task);
-    });
     
     updateSubtitle(tasks.length);
 });
