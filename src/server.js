@@ -45,8 +45,8 @@ app.get('/tasks', (_req, res) => {
     res.end(JSON.stringify(tasks));
 });
 
-app.post('/add/:description', (req, res) => {
-    const description = req.params.description;
+app.post('/tasks', (req, res) => {
+    const { description } = req.body;
 
     if (!description.trim()) {
         res.statusCode = 400;

@@ -74,7 +74,13 @@ document.addEventListener('DOMContentLoaded', async _ => {
     const textfield = document.getElementById('textfield');
     
     const handleSubmission = async _ => {
-        const res = await fetch(`/add/${textfield.value}`, { method: 'POST' });
+        const res = await fetch(`/tasks`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                description: textfield.value,
+            }),
+        });
 
         if (res.status !== 200)
             return;
