@@ -82,8 +82,11 @@ app.delete('/delete/:id', (req, res) => {
     res.end();
 });
 
-app.use((_req, _res) => {
+app.use((_req, res) => {
     console.log('Could not handle request.');
+    res.statusCode = 404;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('404 Not found');
 });
 
 const port = 3000;
