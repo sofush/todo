@@ -14,28 +14,27 @@ const addTaskElement = (taskJson) => {
 
     const taskElement = taskContainer.getElementsByClassName('task')[0];
 
-    taskElement.addEventListener('click', _ => {
-        fetch('/toggle/' + taskJson.id, { method: 'post' })
-        .then(response => {
-            if (response.status !== 200)
-                return;
+    taskElement.addEventListener('click', async _ => {
+        const res = await fetch(`/toggle/${taskJson.id}`, { method: 'PATCH' });
 
-            taskContainer.classList.toggle('completed')
-            updateSubtitle();
-        });
+        if (res.status !== 204) {
+            return;
+        }
+
+        taskContainer.classList.toggle('completed')
+        updateSubtitle();
     });
     
     const deleteElement = taskContainer.getElementsByClassName('task-delete')[0];
     
-    deleteElement.addEventListener('click', _ => {
-        fetch('/delete/' + taskJson.id, { method: 'post' })
-        .then(response => {
-            if (response.status !== 200)
-                return;
+    deleteElement.addEventListener('click', async _ => {
+        const res = await fetch(`/delete/${taskJson.id}`, { method: 'DELETE' });
 
-            taskContainer.remove();
-            updateSubtitle();
-        });
+        if (res.status !== 204)
+            return;
+
+        taskContainer.remove();
+        updateSubtitle();
     });
 };
 
@@ -64,17 +63,16 @@ document.addEventListener('DOMContentLoaded', async _ => {
     const button = document.getElementById('button');
     const textfield = document.getElementById('textfield');
     
-    const handleSubmission = _ => {
-        fetch('/add/' + textfield.value, { method: 'post' })
-        .then(async response => {
-            if (response.status !== 200)
-                return;
+    const handleSubmission = async _ => {
+        const res = await fetch(`/add/${textfield.value}`, { method: 'POST' });
 
-            const task = await response.json();
-            textfield.value = '';
-            addTaskElement(task);
-            updateSubtitle();
-        });
+        if (res.status !== 200)
+            return;
+
+        const task = await res.json();
+        textfield.value = '';
+        addTaskElement(task);
+        updateSubtitle();
     };
     
     button.addEventListener('click', handleSubmission);
