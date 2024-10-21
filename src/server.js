@@ -2,8 +2,6 @@ const express = require('express');
 const path = require('path')
 const app = express();
 
-app.use(express.json());
-
 var tasks = [
     {
         id: 1,
@@ -27,6 +25,8 @@ var tasks = [
     }
 ];
 var counter = tasks.length;
+
+app.use(express.json());
 
 app.use((req, _res, next) => {
     console.log(`${req.method} ${req.path} from ${req.ip}`);
