@@ -41,9 +41,9 @@ app.get('/', (_req, res) => {
 });
 
 app.get('/tasks', (_req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(tasks));
+    res.status(200)
+        .setHeader('Content-Type', 'application/json')
+        .end(JSON.stringify(tasks));
 });
 
 app.post('/tasks', [
@@ -65,7 +65,7 @@ app.post('/tasks', [
     };
 
     tasks.push(newTask);
-    res.status(201).json(newTask);
+    res.status(201).json(JSON.stringify(newTask));
 });
 
 app.patch('/toggle/:id', (req, res) => {
@@ -73,21 +73,19 @@ app.patch('/toggle/:id', (req, res) => {
         .filter(task => task.id == req.params.id)
         .forEach(task => task.completed = !task.completed);
 
-    res.statusCode = 204;
-    res.end();
+    res.status(204).end();
 });
 
 app.delete('/delete/:id', (req, res) => {
     tasks = tasks.filter(task => task.id != req.params.id);
-    res.statusCode = 204;
-    res.end();
+    res.status(204).end();
 });
 
 app.use((_req, res) => {
     console.log('Could not handle request.');
-    res.statusCode = 404;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('404 Not found');
+    res.status(404)
+        .setHeader('Content-Type', 'text/plain')
+        .end({ error: '404 not found' });
 });
 
 const port = 3000;
