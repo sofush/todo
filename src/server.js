@@ -69,10 +69,8 @@ app.post('/tasks', [
 });
 
 app.patch('/toggle/:id', (req, res) => {
-    tasks
-        .filter(task => task.id == req.params.id)
-        .forEach(task => task.completed = !task.completed);
-
+    const task = tasks.find(task => task.id == req.params.id);
+    task.completed = !task.completed;
     res.status(204).end();
 });
 
