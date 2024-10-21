@@ -1,5 +1,6 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
+const morgan = require('morgan');
 const path = require('path')
 const app = express();
 
@@ -28,12 +29,7 @@ let tasks = [
 let counter = tasks.length;
 
 app.use(express.json());
-
-app.use((req, _res, next) => {
-    console.log(`${req.method} ${req.path} from ${req.ip}`);
-    next();
-});
-
+app.use(morgan('combined'));
 app.use('/static', express.static(path.join(__dirname, '..', 'static')))
 
 app.get('/', (_req, res) => {
