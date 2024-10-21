@@ -3,13 +3,13 @@ const updateSubtitle = () => {
     const completeTasks = document.querySelectorAll('.task-container.completed');
     const subtitle = document.getElementById('subtitle');
     
-    if (incompleteTasks.length > 0)
+    if (incompleteTasks.length) {
         subtitle.innerHTML = `You have ${incompleteTasks.length} incomplete tasks.`;
-    else if (incompleteTasks.length == 0 && completeTasks.length > 0)
+    } else if (completeTasks.length) {
         subtitle.innerHTML = `You have completed all your tasks!`;
-    else
+    } else {
         subtitle.innerHTML = 'You have not added any tasks.';
-
+    }
 };
 
 const toggleCompleted = async (taskContainerDiv, taskId) => {
