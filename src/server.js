@@ -79,7 +79,7 @@ app.use((_req, res) => {
     console.log('Could not handle request.');
     res.status(404)
         .setHeader('Content-Type', 'text/plain')
-        .end({ error: '404 not found' });
+        .end('404 not found');
 });
 
 const port = 3000;
