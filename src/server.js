@@ -3,7 +3,7 @@ const { body, validationResult } = require('express-validator');
 const path = require('path')
 const app = express();
 
-var tasks = [
+let tasks = [
     {
         id: 1,
         description: "Buy groceries",
@@ -25,7 +25,7 @@ var tasks = [
         completed: false,
     }
 ];
-var counter = tasks.length;
+let counter = tasks.length;
 
 app.use(express.json());
 
