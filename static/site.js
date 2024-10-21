@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async _ => {
             }),
         });
 
-        if (res.status !== 200)
+        if (res.status !== 201)
             return;
 
         const task = await res.json();

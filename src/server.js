@@ -1,4 +1,5 @@
 const express = require('express');
+const { body, validationResult } = require('express-validator');
 const path = require('path')
 const app = express();
 
@@ -45,26 +46,26 @@ app.get('/tasks', (_req, res) => {
     res.end(JSON.stringify(tasks));
 });
 
-app.post('/tasks', (req, res) => {
-    const { description } = req.body;
+app.post('/tasks', [
+    body('description')
+        .trim()
+        .isLength({ min: 1 })
+        .withMessage('Description cannot be empty.')
+], (req, res) => {
+    const errors = validationResult(req);
 
-    if (!description.trim()) {
-        res.statusCode = 400;
-        res.setHeader('Content-Type', 'text/plain');
-        res.end();
-        return;
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
     }
 
     const newTask = {
         id: ++counter,
-        description: description,
+        description: req.body.description,
         completed: false,
     };
 
     tasks.push(newTask);
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(newTask));
+    res.status(201).json(newTask);
 });
 
 app.patch('/toggle/:id', (req, res) => {
